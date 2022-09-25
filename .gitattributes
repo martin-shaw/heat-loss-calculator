@@ -1,0 +1,9 @@
+* text=auto eol=lf
+# Explicitly declare text files that should be normalized and converted
+# to native line endings on checkout.
+
+# Declare files that should have CRLF line endings on checkout.
+
+# Declare files that should have LF line endings on checkout.
+
+# Declare files that are truly binary and shouldn't be modified.
