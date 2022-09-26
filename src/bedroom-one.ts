@@ -1,4 +1,13 @@
-import { doubleBrick, doubleGlazing, internalCeiling, internalFloor, plaster, singleBrick } from "./fabric";
+import {
+    doubleBrick,
+    doubleGlazing,
+    internalCeiling,
+    internalFloor,
+    plaster,
+    RdSAPDoubleBrick,
+    RdSAPPartyWall,
+    singleBrick,
+} from "./fabric";
 import { Room } from "./room";
 
 export const room: Room = {
@@ -9,17 +18,35 @@ export const room: Room = {
             name: "external wall",
             width: 4.9,
             height: 2.8,
-            composition: [doubleBrick, plaster],
+            composition: RdSAPDoubleBrick,
             boundaryTemperature: -3,
             elements: [
                 { name: "window 1", width: 0.95, height: 1.7, composition: doubleGlazing },
                 { name: "window 2", width: 0.65, height: 1.7, composition: doubleGlazing },
             ],
         },
-        { name: "party wall", width: 3.7, height: 2.8, composition: [plaster, doubleBrick, plaster] },
-        { name: "party wall", width: 3.7, height: 2.8, composition: [plaster, doubleBrick, plaster] },
-        { name: "internal wall", width: 4.9, height: 2.8, composition: [plaster, singleBrick, plaster] },
-        { name: "internal floor", width: 4.9, height: 3.7, composition: internalFloor },
-        { name: "internal ceiling", width: 4.9, height: 3.7, composition: internalCeiling },
+        {
+            name: "party wall",
+            width: 3.7,
+            height: 2.8,
+            composition: RdSAPPartyWall,
+            boundaryTemperature: 18,
+        },
+        {
+            name: "party wall",
+            width: 3.7,
+            height: 2.8,
+            composition: RdSAPPartyWall,
+            boundaryTemperature: 18,
+        },
+        {
+            name: "internal wall",
+            width: 4.9,
+            height: 2.8,
+            composition: [plaster, singleBrick, plaster],
+            boundaryTemperature: 18,
+        },
+        { name: "internal floor", width: 4.9, height: 3.7, composition: internalFloor, boundaryTemperature: 18 },
+        { name: "internal ceiling", width: 4.9, height: 3.7, composition: internalCeiling, boundaryTemperature: 18 },
     ],
 };

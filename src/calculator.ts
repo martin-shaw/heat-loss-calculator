@@ -8,6 +8,7 @@ import { sum } from "./math";
 interface CalculatedRoom {
     area: number;
     heatLoss: number;
+    surfaces: CalculatedSurface[];
 }
 interface CalculatedSurface {
     name: string;
@@ -18,13 +19,11 @@ interface CalculatedSurface {
 
 export const calculateRoom = (room: Room): CalculatedRoom => {
     const surfaces = room.surfaces.map((surface) => calculateSurface(surface, room.temperature));
-    // room.wk += e.wk
-    // room.heat += e.heat
-    // room.kwh += e.kwh
-    // room.A += e.A
+
     return {
         area: sum(surfaces.map((surface) => surface.area)),
         heatLoss: sum(surfaces.map((surface) => surface.heatLoss)),
+        surfaces,
     };
 };
 
