@@ -48,8 +48,15 @@ const plasterboard: FabricComponent = {
 };
 
 describe("calculateUValue", () => {
-    test("U value is calculated", () => {
+    test("Multiple compositions are calculated", () => {
         const result = calculateUValue([outerLeaf, cavity, insulation, innerLeaf, plasterboard]);
-        expect(result).toBe(0.18484045891170775);
+        expect(result.toFixed(2)).toBe("0.18");
+    });
+
+    test("Single composition is calculated", () => {
+        const result = calculateUValue([
+            { name: "single brick", thickness: 0.1, kValue: { type: "brick", value: 0.1 } },
+        ]);
+        expect(result).toBe(1);
     });
 });

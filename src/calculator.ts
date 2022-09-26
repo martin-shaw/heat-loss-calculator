@@ -1,30 +1,50 @@
-import { sum } from "./rect";
+import { sumAreas } from "./rect";
 import { Room } from "./room";
 import { Surface, calculateUValue } from "./surface";
+import { defaultRoomTemperature } from "./settings";
+import { Fabric, FabricComponent } from "./fabric/fabric";
 
 export const calculate = (room: Room) => {};
 
-export const calculateSurface = (surface: Surface, roomTemperature: number) => {
-    const uValue = Array.isArray(surface.composition)
-        ? calculateUValue(surface.composition)
-        : surface.composition.uValue;
+interface CalculatedSurface {
+    name: string;
+    uValue: number;
+    area: number;
+    heatLoss: number;
+}
 
-    const area = calculateSurfaceArea(surface);
+export const calculateSurface = (surface: Surface, roomTemperature: number): CalculatedSurface[] => {
     const deltaT =
         roomTemperature - (surface.boundaryTemperature ? surface.boundaryTemperature : defaultRoomTemperature);
 
-    // SAP model
-    // https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/fabricheatloss
-    // Heat loss = U-value x Area x Temperature Difference
-    const heatLoss = uValue * area * deltaT;
+    const surfaces = [surface, ...(surface.elements ? surface.elements : [])];
+
+    return surfaces.map((surface) => {
+        const uValue = calculateSurfaceUValue(surface.composition);
+        const area = calculateSurfaceArea(surface);
+        // SAP model
+        // https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/fabricheatloss
+        // Heat loss = U-value x Area x Temperature Difference
+        const heatLoss = uValue * area * deltaT;
+
+        return {
+            name: surface.name,
+            uValue,
+            area,
+            heatLoss,
+        };
+    });
 };
 
 export const calculateSurfaceArea = (surface: Surface) => {
     let elementsArea = 0;
 
     if (surface.elements) {
-        elementsArea = sum(surface.elements);
+        elementsArea = sumAreas(surface.elements);
     }
 
-    return sum([surface]) - elementsArea;
+    return sumAreas([surface]) - elementsArea;
 };
+
+export const calculateSurfaceUValue = (composition: Fabric | FabricComponent[]) =>
+    Array.isArray(composition) ? calculateUValue(composition) : composition.uValue;

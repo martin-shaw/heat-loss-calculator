@@ -1,2 +1,2 @@
-const defaultRoomTemperature = 20;
-const defaultExternalTemperature = -3;
+export const defaultRoomTemperature = 20;
+export const defaultExternalTemperature = -3;
