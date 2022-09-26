@@ -32,9 +32,6 @@ describe("calculateSurface", () => {
             20
         );
 
-        expect(result).toEqual([
-            { name: "external wall", area: 9, uValue: 1, heatLoss: 207 },
-            { name: "window 1", area: 1, uValue: 1, heatLoss: 23 },
-        ]);
+        expect(result).toEqual({ name: "external wall", area: 10, heatLoss: 230 });
     });
 });

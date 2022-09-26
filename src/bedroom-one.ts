@@ -1,7 +1,7 @@
-import { doubleBrick, doubleGlazing, plaster, singleBrick } from "./fabric";
+import { doubleBrick, doubleGlazing, internalCeiling, internalFloor, plaster, singleBrick } from "./fabric";
 import { Room } from "./room";
 
-const room: Room = {
+export const room: Room = {
     name: "Bedroom 1",
     temperature: 18,
     surfaces: [
@@ -19,5 +19,7 @@ const room: Room = {
         { name: "party wall", width: 3.7, height: 2.8, composition: [plaster, doubleBrick, plaster] },
         { name: "party wall", width: 3.7, height: 2.8, composition: [plaster, doubleBrick, plaster] },
         { name: "internal wall", width: 4.9, height: 2.8, composition: [plaster, singleBrick, plaster] },
+        { name: "internal floor", width: 4.9, height: 3.7, composition: internalFloor },
+        { name: "internal ceiling", width: 4.9, height: 3.7, composition: internalCeiling },
     ],
 };

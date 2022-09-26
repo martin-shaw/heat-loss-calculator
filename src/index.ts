@@ -1,1 +1,5 @@
-console.log("heat loss calculator");
+import { room } from "./bedroom-one";
+import { calculateRoom } from "./calculator";
+
+const result = calculateRoom(room);
+console.log("bedroom 1", result);
