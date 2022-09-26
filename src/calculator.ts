@@ -2,7 +2,7 @@ import { sumAreas } from "./rect";
 import { Room } from "./room";
 import { Surface, calculateUValue } from "./surface";
 import { defaultRoomTemperature } from "./settings";
-import { Fabric, FabricComponent } from "./fabric/fabric";
+import { Fabric, FabricComponent } from "./fabric";
 
 export const calculate = (room: Room) => {};
 

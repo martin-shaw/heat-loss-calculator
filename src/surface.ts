@@ -1,4 +1,4 @@
-import { Fabric, FabricComponent } from "./fabric/fabric";
+import { Fabric, FabricComponent } from "./fabric";
 import { Rect } from "./rect";
 import { sum } from "./math";
 

@@ -1,4 +1,4 @@
-import { brick, plaster as plasterKvalue, kValue } from "../k-value";
+import { brick, plaster as plasterKvalue, kValue } from "./k-value";
 
 export interface Fabric {
     name: string;

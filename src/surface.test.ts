@@ -1,4 +1,4 @@
-import { FabricComponent } from "./fabric/fabric";
+import { FabricComponent } from "./fabric";
 import { calculateUValue } from "./surface";
 
 // Calculation from https://www.ibstockbrick.co.uk/wp-content/uploads/2021/06/TIS-A9-UNDERSTANDING-K-VALUES-AND-U-VALUES-2021.pdf
