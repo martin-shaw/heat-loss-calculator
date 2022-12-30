@@ -14,7 +14,15 @@ const wallUValue = 2.0;
 /**
  * https://www.bre.co.uk/filelibrary/SAP/2012/RdSAP-9.93/RdSAP_2012_9.93.pdf
  */
-export const calculate = (wallThickness: number, area: number, exposedPerimiter: number, heightAboveGround: number) => {
+export const calculate = (
+    wallThickness: number,
+    area: number,
+    exposedPerimiter: number,
+    heightAboveGround: number,
+    insulationThermalResistance: number = 0
+) => {
+    const floorThermalResistance = Rf + insulationThermalResistance;
+
     // 1. dg = w + λg × (Rsi + Rse)
     const dg = wallThickness + clayThermalConductivity * (Rsi + Rse);
 
@@ -28,7 +36,7 @@ export const calculate = (wallThickness: number, area: number, exposedPerimiter:
     const ux = (2 * heightAboveGround * wallUValue) / b + (1450 * ventilation * windSpeed * windSheildingFactor) / b;
 
     // 5. U = 1 / (2 × Rsi + Rf + 1/(Ug + Ux))
-    const u = 1 / ((2 * Rsi + Rf + 1) / (ug + ux));
+    const u = 1 / ((2 * Rsi + floorThermalResistance + 1) / (ug + ux));
 
     return u;
 };
