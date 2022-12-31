@@ -1,29 +1,48 @@
 const windSpeed = 5;
 const windSheildingFactor = 0.05;
-// Ventilation openings per m exposed perimeter ε = 0.003 m²/m
-const ventilation = 0.003;
 // Soil type clay (thermal conductivity λg = 1.5 W/m·K)
 const clayThermalConductivity = 1.5;
 const Rsi = 0.17;
 const Rse = 0.04;
-// Thermal resistance of floor deck Rf = 0.2 m²K/W if uninsulated,
-// or Rf = thermal resistance of insulation + 0.2 if insulated
-const Rf = 0.2;
-// S5.5 states U-value of walls to underfloor space Uw = 1.5 W/m²K
-// Not sure why this differs to the 2.1 value stated elsewhere for 220mm solid wall 
-const wallUValue = 1.5;
+
+const modelDefaults = {
+    // Ventilation openings per m exposed perimeter ε = 0.003 m²/m
+    ventilation: 0.003,
+    // Thermal resistance of floor deck Rf = 0.2 m²K/W if uninsulated,
+    // or Rf = thermal resistance of insulation + 0.2 if insulated
+    rf: 0.2,
+    // S5.5 states U-value of walls to underfloor space Uw = 1.5 W/m²K
+    // Not sure why this differs to the 2.1 value stated elsewhere for 220mm solid wall
+    wallUValue: 1.5,
+};
+
+interface Model {
+    wallThickness: number;
+    area: number;
+    exposedPerimiter: number;
+    heightAboveGround: number;
+    rf?: number;
+    ventilation?: number;
+    wallUValue?: number;
+    insulationThermalResistance?: number;
+}
 
 /**
  * https://www.bre.co.uk/filelibrary/SAP/2012/RdSAP-9.93/RdSAP_2012_9.93.pdf
  */
-export const calculate = (
-    wallThickness: number,
-    area: number,
-    exposedPerimiter: number,
-    heightAboveGround: number,
-    insulationThermalResistance: number = 0
-) => {
-    const floorThermalResistance = Rf + insulationThermalResistance;
+export const calculate = (model: Model) => {
+    const {
+        wallThickness,
+        area,
+        exposedPerimiter,
+        heightAboveGround,
+        wallUValue = modelDefaults.wallUValue,
+        rf = modelDefaults.rf,
+        ventilation = modelDefaults.ventilation,
+        insulationThermalResistance = 0,
+    } = model;
+
+    const floorThermalResistance = rf + insulationThermalResistance;
 
     // 1. dg = w + λg × (Rsi + Rse)
     const dg = wallThickness + clayThermalConductivity * (Rsi + Rse);
