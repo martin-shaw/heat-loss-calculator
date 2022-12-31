@@ -1,7 +1,8 @@
 import { calculate } from "./suspended-floor";
 
 /**
- * // https://www.sciencedirect.com/science/article/pii/S0378778817311350
+ * https://www.sciencedirect.com/science/article/pii/S0378778817311350
+ * https://eprints.whiterose.ac.uk/116433/14/Suspended%20timber%20ground%20floors%20measured%20heat%20loss%20compared%20with%20models.pdf
  * The case study house was a pre-1919 solid wall terraced house located in a conservation area in London and the case study characteristics,
  * alongside instrumentation of the uninsulated floor and research methods, are described in more detail in [38].
  * The 12.15 m2 living room floor had a floor void depth of 250 mm below the 100 mm joists, with a 150 mm concrete oversite surface on the soil.
@@ -38,7 +39,6 @@ describe("Science Direct case study RdSAP calibration", () => {
         // thickness / thermal conductivity
         const insulationThermalResistance = 0.1 / 0.038;
 
-        // Using the same height above ground as uninsulated floor. Maybe should use 0.25 for the 100mm insulated floor
         const result = calculate({
             wallThickness,
             area,
