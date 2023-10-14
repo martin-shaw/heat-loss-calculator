@@ -11,6 +11,18 @@ const wallUValue = 1.7;
 
 describe("Science Direct case study RdSAP calibration", () => {
     test("Uninsulated floor", () => {
+        // S5.5 U-values of floors next to the ground RdSAP 2012 version 9.94 (20th September 2019)
+        // rf = 0.2
+        // wallUValue = 1.5
+        // heightAboveGround = 0.3
+        // ventilation =  0.003
+        // Produces value of 0.57
+
+        // rf = 0.2
+        // wallUValue = 1.5
+        // heightAboveGround = 0.17
+        // Produces value of 0.51
+
         const result = calculate({
             wallThickness,
             area,
