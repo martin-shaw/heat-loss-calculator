@@ -4,7 +4,7 @@ import { calculate } from "./suspended-floor";
 const wallThickness = 0.22;
 const area = 27.7;
 const exposedPerimiter = 9.1;
-const heightAboveGround = 0.25;
+const heightAboveGround = 0.25; // Void depth below bottom of joist
 const rf = 0.13;
 const ventilation = 0.0024;
 const wallUValue = 1.7;
@@ -21,6 +21,7 @@ describe("Science Direct case study RdSAP calibration", () => {
             ventilation,
         });
         // Science direct RdSAP value is 0.51
+        // Science direct ISO-13370 value is 0.57
         expect(result.toFixed(2)).toBe("0.57");
     });
 
@@ -43,6 +44,8 @@ describe("Science Direct case study RdSAP calibration", () => {
     });
 
     test("Bead insulated floor Warmfill Silver beads", () => {
+        // 0.25 void depth below bottom of joist
+        // 0.35 void depth + jost depth (referenced 3.1. Intervention 1)
         // thickness / thermal conductivity
         const insulationThermalResistance = 0.25 / 0.033;
 
