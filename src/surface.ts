@@ -9,5 +9,11 @@ export interface Surface extends Rect {
     elements?: Surface[];
 }
 
+export interface GableWall extends Surface {
+    roofAngle: number;
+    roofBase: number;
+    roofApex: number;
+}
+
 export const calculateUValue = (fabrics: FabricComponent[]) =>
     1 / sum(fabrics.map((fabric) => fabric.thickness / fabric.kValue.value));
