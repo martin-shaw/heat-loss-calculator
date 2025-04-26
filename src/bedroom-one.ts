@@ -10,7 +10,6 @@ import {
 import { Room } from "./room";
 
 export const room: Room = {
-    type: "room",
     name: "Bedroom 1",
     temperature: 18,
     surfaces: [

@@ -1,8 +1,7 @@
 import { internalCeiling, internalFloor, plaster, RdSAPDoubleBrick, RdSAPPartyWall, singleBrick } from "./fabric";
-import { Room, RoomInRoof } from "./room";
+import { Room } from "./room";
 
-export const room: RoomInRoof = {
-    type: "room-in-roof",
+export const room: Room = {
     name: "Bedroom 3",
     temperature: 18,
     surfaces: [
@@ -19,6 +18,7 @@ export const room: RoomInRoof = {
             height: 2.8,
             composition: RdSAPPartyWall,
             boundaryTemperature: 18,
+            gables: [{ roofBase: 1.2, roofApex: 2.8, roofAngle: 30 }],
         },
         {
             name: "internal wall",
@@ -29,17 +29,5 @@ export const room: RoomInRoof = {
         },
         { name: "internal floor", width: 4.9, height: 3.7, composition: internalFloor, boundaryTemperature: 18 },
         { name: "internal ceiling", width: 4.9, height: 3.7, composition: internalCeiling, boundaryTemperature: 18 },
-    ],
-    gableWalls: [
-        {
-            name: "party wall",
-            width: 3.8,
-            height: 2.7,
-            composition: RdSAPPartyWall,
-            boundaryTemperature: 18,
-            roofBase: 1.2,
-            roofApex: 1.5,
-            roofAngle: 30,
-        },
     ],
 };

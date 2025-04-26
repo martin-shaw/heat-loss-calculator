@@ -1,4 +1,4 @@
-import { calculateSurfaceArea, calculateSurface } from "./calculator";
+import { calculateSurfaceArea } from "./calculator";
 
 describe("calculateSurfaceArea", () => {
     test("elements are subtracted", () => {
@@ -14,24 +14,17 @@ describe("calculateSurfaceArea", () => {
         });
         expect(result).toBe(7);
     });
-});
 
-describe("calculateSurface", () => {
-    test("surface is calculated", () => {
-        const result = calculateSurface(
-            {
-                name: "external wall",
-                width: 5,
-                height: 2,
-                boundaryTemperature: -3,
-                composition: [{ name: "single brick", thickness: 0.1, kValue: { type: "brick", value: 0.1 } }],
-                elements: [
-                    { name: "window 1", width: 1, height: 1, composition: { name: "double glazing", uValue: 1 } },
-                ],
-            },
-            20
-        );
-
-        expect(result).toEqual({ name: "external wall", area: 10, heatLoss: 230 });
+    test("gables are subtracted", () => {
+        const result = calculateSurfaceArea({
+            name: "wall",
+            width: 4.0,
+            height: 2.0,
+            gables: [{ roofAngle: 45, roofBase: 0, roofApex: 2.0 }],
+            composition: [],
+        });
+        expect(result).toBe(6);
     });
 });
+
+// TODO: Add tests for surface heatloss

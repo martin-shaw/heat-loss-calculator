@@ -1,8 +1,8 @@
 import { hypotenuse } from "./trig";
 
 describe("hypotenuse", () => {
-    test("rects are summed", () => {
-        const result = hypotenuse(1530, 30);
-        expect(result).toBe(3060);
+    test("hypotenuse is calcuated", () => {
+        const result = hypotenuse(1000, 30);
+        expect(result).toBe(2000);
     });
 });

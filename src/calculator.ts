@@ -1,9 +1,10 @@
 import { sumAreas } from "./rect";
-import { Room, RoomInRoof } from "./room";
-import { GableWall, Surface, calculateUValue } from "./surface";
+import { Room } from "./room";
+import { Surface, calculateUValue } from "./surface";
 import { defaultRoomTemperature } from "./settings";
 import { Fabric, FabricComponent } from "./fabric";
 import { sum } from "./math";
+import { area as triangleArea } from "./triangle";
 
 interface CalculatedRoom {
     area: number;
@@ -45,47 +46,6 @@ export const calculateRoom = (room: Room) => {
     };
 };
 
-export const calculateRoomInRoof = (room: RoomInRoof): CalculatedRoom => {
-    // const surfaces = room.surfaces.map((surface) => calculateSurface(surface, room.temperature));
-    // const gableWalls = room.gableWalls.map((gableWall) => calculateSurface(gableWall, room.temperature));
-
-    const calculatedSurfaces = room.surfaces.map((surface) => {
-        const surfaceAreas = calculateSurfaceAreas(surface);
-
-        return {
-            name: surface.name,
-            area: sum(surfaceAreas.map((surfaceArea) => surfaceArea.area)),
-            heatLoss: sum(
-                surfaceAreas.map((surfaceArea) =>
-                    calculateSurfaceHeatloss(surfaceArea, room.temperature, surface.boundaryTemperature)
-                )
-            ),
-        };
-    });
-
-    const calculatedGableWalls = room.gableWalls.map((surface) => {
-        const surfaceAreas = calculateSurfaceAreas(surface);
-
-        // Remove roof triangle part from surface area
-
-        return {
-            name: surface.name,
-            area: sum(surfaceAreas.map((surfaceArea) => surfaceArea.area)),
-            heatLoss: sum(
-                surfaceAreas.map((surfaceArea) =>
-                    calculateSurfaceHeatloss(surfaceArea, room.temperature, surface.boundaryTemperature)
-                )
-            ),
-        };
-    });
-
-    return {
-        area: sum(calculatedSurfaces.map((calculatedSurface) => calculatedSurface.area)),
-        heatLoss: sum(calculatedSurfaces.map((calculatedSurface) => calculatedSurface.heatLoss)),
-        surfaces: calculatedSurfaces,
-    };
-};
-
 export const calculateSurfaceAreas = (surface: Surface) => {
     const flattenedSurfaces = [surface, ...(surface.elements ? surface.elements : [])];
 
@@ -95,21 +55,6 @@ export const calculateSurfaceAreas = (surface: Surface) => {
         area: calculateSurfaceArea(surface),
     }));
 };
-
-/*
-export const calculateSurface = (surface: Surface) => {
-    const surfaces = [surface, ...(surface.elements ? surface.elements : [])];
-
-    const calculatedSurfaces = surfaces.map((surface) => calculateSurfaceArea(surface));
-
-    return {
-        name: surface.name,
-        boundaryTemperature: surface.boundaryTemperature,
-        composition: surface.composition,
-        area: sum(calculatedSurfaces),
-    };
-};
-*/
 
 export const calculateSurfaceHeatloss = (
     surface: CalculatedSurfaceArea,
@@ -127,22 +72,17 @@ export const calculateSurfaceHeatloss = (
 
 export const calculateSurfaceArea = (surface: Surface) => {
     let elementsArea = 0;
+    let gablesArea = 0;
 
     if (surface.elements) {
         elementsArea = sumAreas(surface.elements);
     }
 
-    return sumAreas([surface]) - elementsArea;
-};
-
-export const calculateGableWallSurfaceArea = (surface: GableWall) => {
-    let elementsArea = 0;
-
-    if (surface.elements) {
-        elementsArea = sumAreas(surface.elements);
+    if (surface.gables) {
+        gablesArea = sum(surface.gables.map((gable) => triangleArea(surface.height - gable.roofBase, gable.roofAngle)));
     }
 
-    return sumAreas([surface]) - elementsArea;
+    return sumAreas([surface]) - elementsArea - gablesArea;
 };
 
 export const calculateSurfaceUValue = (composition: Fabric | FabricComponent[]) =>

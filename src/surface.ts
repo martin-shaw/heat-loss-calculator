@@ -7,12 +7,13 @@ export interface Surface extends Rect {
     boundaryTemperature?: number;
     composition: Fabric | FabricComponent[];
     elements?: Surface[];
+    gables?: Gable[];
 }
 
-export interface GableWall extends Surface {
-    roofAngle: number;
+export interface Gable {
     roofBase: number;
     roofApex: number;
+    roofAngle: number;
 }
 
 export const calculateUValue = (fabrics: FabricComponent[]) =>
