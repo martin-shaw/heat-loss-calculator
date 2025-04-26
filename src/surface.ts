@@ -12,7 +12,6 @@ export interface Surface extends Rect {
 
 export interface Gable {
     roofBase: number;
-    roofApex: number;
     roofAngle: number;
 }
 
