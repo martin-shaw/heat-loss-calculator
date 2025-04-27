@@ -20,7 +20,7 @@ describe("calculateSurfaceArea", () => {
             name: "wall",
             width: 4.0,
             height: 2.0,
-            gables: [{ roofAngle: 45, roofBase: 0, roofApex: 2.0 }],
+            gables: [{ roofAngle: 45, roofBase: 0 }],
             composition: [],
         });
         expect(result).toBe(6);
@@ -28,3 +28,9 @@ describe("calculateSurfaceArea", () => {
 });
 
 // TODO: Add tests for surface heatloss
+// separate heat loss calculation from surfaces calculation to make it easier to have other models
+// SAP vs CIBSE
+// external vs unheated spaces
+// non-rectangular shapes, for example dormer cheeks, surface could be changed to extend shape?
+// shape has an area. Surface could be a rect or a shape
+// check kvalue understanding. Should be able to calculate and equal a uvalue equivalent

@@ -1,8 +1,8 @@
 import { sumAreas } from "./rect";
 import { Room } from "./room";
-import { Surface, calculateUValue } from "./surface";
+import { Surface } from "./surface";
 import { defaultRoomTemperature } from "./settings";
-import { Fabric, FabricComponent } from "./fabric";
+import { calculateUValue, Fabric, FabricComponent } from "./fabric";
 import { sum } from "./math";
 import { area as triangleArea } from "./triangle";
 

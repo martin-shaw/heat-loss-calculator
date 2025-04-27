@@ -1,7 +1,5 @@
-import { FabricComponent } from "./fabric";
-import { calculateUValue } from "./surface";
+import { FabricComponent, calculateUValue, calculateUValueFromRValues, calculateRValue } from "./fabric";
 
-// Calculation from https://www.ibstockbrick.co.uk/wp-content/uploads/2021/06/TIS-A9-UNDERSTANDING-K-VALUES-AND-U-VALUES-2021.pdf
 const outerLeaf: FabricComponent = {
     name: "outerLeaf",
     thickness: 0.102,
@@ -47,10 +45,32 @@ const plasterboard: FabricComponent = {
     },
 };
 
-describe("calculateUValue", () => {
-    test("Multiple compositions are calculated", () => {
-        const result = calculateUValue([outerLeaf, cavity, insulation, innerLeaf, plasterboard]);
+const ecoWool: FabricComponent = {
+    name: "eco-wool",
+    thickness: 0.35,
+    kValue: {
+        type: "eco-wool",
+        value: 0.0425,
+    },
+};
+
+describe("u-value calibration", () => {
+    test("u-value-calibration.png TIS-A9-UNDERSTANDING-K-VALUES.pdf", () => {
+        // Calculation from https://www.ibstock.co.uk/design-and-technical-services/technical-information
+        // https://assets.ctfassets.net/eta2vegx3yuv/19W8PzNYp7qcdny3iL7V7f/0543cadee6f6139e326d1be4b2794dd7/TIS-A9-UNDERSTANDING-K-VALUES.pdf
+        const result = calculateUValueFromRValues([
+            0.02,
+            ...[outerLeaf, cavity, insulation, innerLeaf, plasterboard].map(calculateRValue),
+            0.13,
+        ]);
+
         expect(result.toFixed(2)).toBe("0.18");
+    });
+
+    test("eco wool insulation", () => {
+        // This matches the manufacturers data
+        const result = calculateUValue([ecoWool]);
+        expect(result.toFixed(2)).toBe("0.12");
     });
 
     test("Single composition is calculated", () => {
