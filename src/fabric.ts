@@ -1,4 +1,5 @@
 import { brick, plaster as plasterKvalue, kValue } from "./k-value";
+import { sum } from "./math";
 
 export interface Fabric {
     name: string;
@@ -14,6 +15,7 @@ export interface FabricComponent {
 export const doubleBrick: FabricComponent = { name: "double brick", thickness: 0.2, kValue: brick };
 export const singleBrick: FabricComponent = { name: "single brick", thickness: 0.1, kValue: brick };
 export const plaster: FabricComponent = { name: "plaster", thickness: 0.02, kValue: plasterKvalue };
+
 // RdSAP
 // Table S14 : Window characteristics
 // 12 mm glazing gap in PVC frame
@@ -32,3 +34,9 @@ export const RdSAPDoubleBrick: Fabric = { name: "double brick", uValue: 2.1 };
 
 // Table S8B : U-values of party walls
 export const RdSAPPartyWall: Fabric = { name: "party wall", uValue: 0 };
+
+export const calculateUValue = (fabrics: FabricComponent[]) => calculateUValueFromRValues(fabrics.map(calculateRValue));
+
+export const calculateUValueFromRValues = (rValues: number[]) => 1 / sum(rValues);
+
+export const calculateRValue = (fabric: FabricComponent) => fabric.thickness / fabric.kValue.value;

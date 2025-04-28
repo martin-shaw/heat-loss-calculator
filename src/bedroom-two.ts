@@ -1,5 +1,4 @@
 import {
-    doubleBrick,
     doubleGlazing,
     internalCeiling,
     internalFloor,

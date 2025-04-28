@@ -8,6 +8,9 @@ https://www.sciencedirect.com/science/article/pii/S0378778817311350
 
 https://www.bre.co.uk/filelibrary/SAP/2012/RdSAP-9.93/RdSAP_2012_9.93.pdf (S5.5)
 
+Referenced by https://heatloss.elmhurstenergy.co.uk/docs/reference-sources/u-values#external-wall-types
+https://bregroup.com/documents/d/bre-group/rdsap_2012_9-94-20-09-2019
+
 https://discovery.ucl.ac.uk/id/eprint/1505859/1/PELSMAKERS_floorPhD_2016_loRes.pdf
 
 https://www.gov.scot/binaries/content/documents/govscot/publications/advice-and-guidance/2020/02/tables-of-u-values-and-thermal-conductivity/documents/6-c---u-values-of-ground-floors-and-basements/6-c---u-values-of-ground-floors-and-basements/govscot%3Adocument/6.C%2B-%2BU-values%2Bof%2Bground%2Bfloors%2Band%2Bbasements%2B%2B.pdf
