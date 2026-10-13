@@ -29,7 +29,7 @@ export const calculate = (model: Model) => {
     const u =
         dt < b
             ? // U = 2 × λg × ln(π × B/dt + 1)/(π × B + dt)
-              (2 * clayThermalConductivity * Math.log(Math.PI * (b / dt + 1))) / (Math.PI * b + dt)
+              (2 * clayThermalConductivity * Math.log((Math.PI * b) / dt + 1)) / (Math.PI * b + dt)
             : // U = λg/(0.457 × B + dt)
               clayThermalConductivity / (0.457 * b + dt);
 

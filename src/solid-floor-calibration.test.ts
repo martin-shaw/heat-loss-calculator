@@ -53,7 +53,7 @@ describe("solid floor calibration", () => {
             exposedPerimiter,
         });
 
-        expect(result.toFixed(2)).toBe("0.39");
+        expect(result.toFixed(2)).toBe("0.38");
         expect(breIp390Result.toFixed(2)).toBe("0.36");
         expect(lookupResult).toBe(0.37);
     });
@@ -105,7 +105,7 @@ describe("solid floor calibration", () => {
             exposedPerimiter,
         });
 
-        expect(result.toFixed(2)).toBe("0.64");
+        expect(result.toFixed(2)).toBe("0.63");
         expect(breIp390Result.toFixed(2)).toBe("0.61");
         expect(lookupResult).toBe(0.6);
     });
@@ -131,7 +131,7 @@ describe("solid floor calibration", () => {
             exposedPerimiter,
         });
 
-        expect(result.toFixed(2)).toBe("0.75");
+        expect(result.toFixed(2)).toBe("0.73");
         expect(breIp390Result.toFixed(2)).toBe("0.72");
         expect(lookupResult).toBe(0.7);
     });

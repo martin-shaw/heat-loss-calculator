@@ -12,7 +12,7 @@ describe("RdSAP calibration", () => {
             rf,
         });
 
-        expect(result.toFixed(2)).toBe("0.46");
+        expect(result.toFixed(2)).toBe("0.45");
     });
 
     test("Soild ground floor 2", () => {
@@ -33,6 +33,6 @@ describe("RdSAP calibration", () => {
             exposedPerimiter: 7,
             rf,
         });
-        expect(result.toFixed(2)).toBe("0.84");
+        expect(result.toFixed(2)).toBe("0.81");
     });
 });

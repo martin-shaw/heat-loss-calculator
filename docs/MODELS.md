@@ -160,7 +160,8 @@ Status meanings:
 
 1. `dt = w + λg × (Rsi + Rf + Rse)`
 2. `B = 2 × A / P`
-3. If `dt < B`: `U = 2 × λg × ln(π × B/dt + 1) / (π × B + dt)`
+3. If `dt < B`: `U = 2 × λg × ln(π × B/dt + 1) / (π × B + dt)`  
+   The logarithm is `ln(πB/dt + 1)`, not `ln(π(B/dt + 1))`.
 4. If `dt ≥ B`: `U = λg / (0.457 × B + dt)`
 
 **Related alternatives:** [`solid-floor-bre-ip-3-90.ts`](#solid-floor-u-value-bre-ip-390-approximate), [`solid-floor-lookup.ts`](#solid-floor-u-value-lookup)
