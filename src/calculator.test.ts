@@ -25,7 +25,28 @@ describe("calculateSurfaceArea", () => {
             gables: [{ roofAngle: 45, roofBase: 0 }],
             composition: [],
         });
-        expect(result).toBe(6);
+        expect(result).toBe(4);
+    });
+
+    test("gable area uses the wall width", () => {
+        const narrow = calculateSurfaceArea({
+            name: "wall",
+            width: 2,
+            height: 2.8,
+            gables: [{ roofAngle: 30, roofBase: 1.2 }],
+            composition: [],
+        });
+        const wide = calculateSurfaceArea({
+            name: "wall",
+            width: 3.7,
+            height: 2.8,
+            gables: [{ roofAngle: 30, roofBase: 1.2 }],
+            composition: [],
+        });
+
+        expect(narrow).toBeCloseTo(2 * 2.8 - (2 * 1.6) / 2, 5);
+        expect(wide).toBeCloseTo(3.7 * 2.8 - (3.7 * 1.6) / 2, 5);
+        expect(wide).not.toBeCloseTo(narrow, 5);
     });
 });
 

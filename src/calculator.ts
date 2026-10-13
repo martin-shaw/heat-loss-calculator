@@ -7,7 +7,6 @@ import { Room } from "./room";
 import { Surface } from "./surface";
 import { calculateElementUValue, Fabric, FabricComponent, SurfaceResistances } from "./fabric";
 import { sum } from "./math";
-import { area as triangleArea } from "./triangle";
 
 interface CalculatedRoom {
     area: number;
@@ -86,7 +85,9 @@ export const calculateSurfaceArea = (surface: Surface) => {
     }
 
     if (surface.gables) {
-        gablesArea = sum(surface.gables.map((gable) => triangleArea(surface.height - gable.roofBase, gable.roofAngle)));
+        // Symmetric gable spanning the wall, subtracted from the rectangle up to ridge height.
+        // Area = (width × rise) / 2. Rise is height above roofBase. Pitch is not an input.
+        gablesArea = sum(surface.gables.map((gable) => (surface.width * (surface.height - gable.roofBase)) / 2));
     }
 
     return sumAreas([surface]) - elementsArea - gablesArea;

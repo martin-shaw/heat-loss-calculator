@@ -17,7 +17,7 @@ CIBSE Guide A is retained as background and a possible alternate model (see open
 | Solid floor U | lookup | gov.scot Table 6.C (P/A → U) | [`src/solid-floor-lookup.ts`](../src/solid-floor-lookup.ts) |
 | Suspended floor U | implemented | RdSAP §S5.5 | [`src/suspended-floor.ts`](../src/suspended-floor.ts) |
 | Room-in-roof | background | RdSAP / gov.scot notes | [`src/room-in-roof.ts`](../src/room-in-roof.ts) (links only) |
-| Surface geometry | utility | Area net of openings / gables | [`src/surface.ts`](../src/surface.ts), [`src/triangle.ts`](../src/triangle.ts) ([omnicalculator](https://www.omnicalculator.com/math/right-triangle-area)) |
+| Surface geometry | utility | Area net of openings; symmetric gable `(width × rise) / 2` | [`src/surface.ts`](../src/surface.ts), [`src/calculator.ts`](../src/calculator.ts) |
 
 Status meanings:
 
@@ -281,6 +281,12 @@ An element U-value adds surface resistances: horizontal internal 0.13, upward 0.
 - [gov.scot REEPS modelling — room in roof](https://www.gov.scot/publications/developing-regulation-energy-efficiency-private-sector-housing-reeps-modelling-improvements-target-stock-main-research-report/pages/9/)
 - [gov.scot supplementary topic notes — room in roof / RdSAP](https://www.gov.scot/publications/supplementary-topic-notes-review-domestic-non-domestic-energy-performance-certificates-scotland/pages/4/)
 - [Retrofit room-in-roof insulation best practice](https://assets.publishing.service.gov.uk/media/61d727d18fa8f50594b59305/retrofit-room-in-roof-insulation-best-practice.pdf)
+
+---
+
+## Surface geometry
+
+Openings are subtracted from the parent rectangle and calculated with their own U-value. A symmetric gable subtracted from a rectangle drawn up to ridge height has area `(width × rise) / 2`, where rise is `height − roofBase`. The right-triangle helper in [`src/triangle.ts`](../src/triangle.ts) is not used for that gable. [`src/trig.ts`](../src/trig.ts) returns the hypotenuse without truncating it. Right-triangle area: [omnicalculator](https://www.omnicalculator.com/math/right-triangle-area).
 
 ---
 
