@@ -96,9 +96,9 @@ Status meanings:
 | Constant | Table / note | Value in code |
 | -------- | ------------ | ------------- |
 | `RdSAPDoubleBrick` | S6 solid brick as built, age bands A–E, England & Wales. The pre-9.93 value was 2.1. Bands F and later are not encoded. | 1.7 |
-| `RdSAPPartyWall` | S8B party walls | 0 |
-| `doubleGlazing` | S14 window characteristics (12 mm gap, PVC) | 2.8 |
-| `internalFloor` / `internalCeiling` | internal separations | 1.7 |
+| `RdSAPPartyWallSolidMasonry` | S8B solid masonry / timber frame / system built. Unfilled cavity is 0.5, filled cavity 0.2, unknown house 0.25; those rows are not encoded. | 0 |
+| `RdSAPPre2002DoubleGlazing12mmPvc` | S14 double glazing, England & Wales before 2002, 12 mm gap, PVC. Later or other gap cells are not encoded. | 2.8 |
+| `internalFloor` / `internalCeiling` | Not Table S12 (exposed upper floors there are 1.20 as built for age bands A–G, or 0.50 insulated). Sample rooms use these between spaces at the same temperature. | 1.7 |
 
 **Implemented in:** [`src/fabric.ts`](../src/fabric.ts)  
 **Used by:** room definitions (`bedroom-one.ts`, `bedroom-two.ts`, `bedroom-three.ts`)

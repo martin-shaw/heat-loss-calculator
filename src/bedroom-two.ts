@@ -1,10 +1,10 @@
 import {
-    doubleGlazing,
+    RdSAPPre2002DoubleGlazing12mmPvc,
     internalCeiling,
     internalFloor,
     plaster,
     RdSAPDoubleBrick,
-    RdSAPPartyWall,
+    RdSAPPartyWallSolidMasonry,
     singleBrick,
 } from "./fabric";
 import { Room } from "./room";
@@ -19,13 +19,13 @@ export const room: Room = {
             height: 2.8,
             composition: RdSAPDoubleBrick,
             boundaryTemperature: -3,
-            elements: [{ name: "window 1", width: 1, height: 1.65, composition: doubleGlazing }],
+            elements: [{ name: "window 1", width: 1, height: 1.65, composition: RdSAPPre2002DoubleGlazing12mmPvc }],
         },
         {
             name: "party wall",
             width: 3.9,
             height: 2.8,
-            composition: RdSAPPartyWall,
+            composition: RdSAPPartyWallSolidMasonry,
             boundaryTemperature: 18,
         },
         {

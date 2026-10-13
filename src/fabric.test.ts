@@ -1,4 +1,11 @@
-import { FabricComponent, calculateUValue, calculateUValueFromRValues, calculateRValue } from "./fabric";
+import {
+    FabricComponent,
+    RdSAPPartyWallSolidMasonry,
+    RdSAPPre2002DoubleGlazing12mmPvc,
+    calculateUValue,
+    calculateUValueFromRValues,
+    calculateRValue,
+} from "./fabric";
 
 const outerLeaf: FabricComponent = {
     name: "outerLeaf",
@@ -78,5 +85,12 @@ describe("u-value calibration", () => {
             { name: "single brick", thickness: 0.1, kValue: { type: "brick", value: 0.1 } },
         ]);
         expect(result).toBe(1);
+    });
+});
+
+describe("RdSAP table cells", () => {
+    test("party wall and glazing match the cited rows", () => {
+        expect(RdSAPPartyWallSolidMasonry.uValue).toBe(0);
+        expect(RdSAPPre2002DoubleGlazing12mmPvc.uValue).toBe(2.8);
     });
 });

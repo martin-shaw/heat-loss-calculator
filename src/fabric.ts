@@ -21,10 +21,15 @@ export const doubleBrick: FabricComponent = { name: "double brick", thickness: 0
 export const singleBrick: FabricComponent = { name: "single brick", thickness: 0.1, kValue: brick };
 export const plaster: FabricComponent = { name: "plaster", thickness: 0.02, kValue: plasterKvalue };
 
-// RdSAP
-// Table S14 : Window characteristics
-// 12 mm glazing gap in PVC frame
-export const doubleGlazing: Fabric = { name: "double glazing", uValue: 2.8 };
+// RdSAP Table S14: double glazing installed before 2002 (England & Wales), 12 mm gap, PVC frame.
+// Neighbouring cells (6 mm 3.1, 16 mm 2.6, 2002-or-later 2.0) are not used by the sample rooms.
+export const RdSAPPre2002DoubleGlazing12mmPvc: Fabric = {
+    name: "double glazing, pre-2002, 12 mm, PVC",
+    uValue: 2.8,
+};
+
+// Not an RdSAP table cell. Table S12 exposed upper floors are 1.20 (age bands A–G, as built) or 0.50 insulated.
+// These sample surfaces are between rooms at the same temperature, so the value does not affect heat loss.
 export const internalFloor: Fabric = { name: "internal floor", uValue: 1.7 };
 export const internalCeiling: Fabric = { name: "internal celing", uValue: 1.7 };
 
@@ -33,8 +38,9 @@ export const internalCeiling: Fabric = { name: "internal celing", uValue: 1.7 };
 // Age band F is 1.0, and later bands are lower. Those cells are not encoded here.
 export const RdSAPDoubleBrick: Fabric = { name: "double brick", uValue: 1.7 };
 
-// Table S8B : U-values of party walls
-export const RdSAPPartyWall: Fabric = { name: "party wall", uValue: 0 };
+// RdSAP Table S8B: solid masonry, timber frame, or system built.
+// Unfilled cavity is 0.5, filled cavity is 0.2, unknown house is 0.25. The sample rooms are solid masonry.
+export const RdSAPPartyWallSolidMasonry: Fabric = { name: "party wall, solid masonry", uValue: 0 };
 
 export const calculateUValue = (fabrics: FabricComponent[]) => calculateUValueFromRValues(fabrics.map(calculateRValue));
 

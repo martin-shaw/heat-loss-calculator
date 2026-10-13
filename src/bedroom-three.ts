@@ -1,4 +1,4 @@
-import { internalCeiling, internalFloor, plaster, RdSAPDoubleBrick, RdSAPPartyWall, singleBrick } from "./fabric";
+import { internalFloor, plaster, RdSAPDoubleBrick, RdSAPPartyWallSolidMasonry, singleBrick } from "./fabric";
 import { Room } from "./room";
 import * as kValues from "./k-value";
 
@@ -17,7 +17,7 @@ export const room: Room = {
             name: "party wall",
             width: 3.7,
             height: 2.8,
-            composition: RdSAPPartyWall,
+            composition: RdSAPPartyWallSolidMasonry,
             boundaryTemperature: 18,
             gables: [{ roofBase: 1.2, roofAngle: 30 }],
         },
@@ -25,7 +25,7 @@ export const room: Room = {
             name: "party wall",
             width: 3.7,
             height: 2.8,
-            composition: RdSAPPartyWall,
+            composition: RdSAPPartyWallSolidMasonry,
             boundaryTemperature: 18,
             gables: [{ roofBase: 1.2, roofAngle: 30 }],
         },
