@@ -2,6 +2,7 @@ import {
     RdSAPPre2002DoubleGlazing12mmPvc,
     internalCeiling,
     internalFloor,
+    internalPartitionResistances,
     plaster,
     RdSAPDoubleBrick,
     RdSAPPartyWallSolidMasonry,
@@ -33,6 +34,7 @@ export const room: Room = {
             width: 3.9,
             height: 2.8,
             composition: [plaster, singleBrick, plaster],
+            surfaceResistances: internalPartitionResistances,
             boundaryTemperature: 18,
         },
         {
@@ -40,6 +42,7 @@ export const room: Room = {
             width: 3.1,
             height: 2.8,
             composition: [plaster, singleBrick, plaster],
+            surfaceResistances: internalPartitionResistances,
             boundaryTemperature: 18,
         },
         { name: "internal floor", width: 3.9, height: 3.1, composition: internalFloor, boundaryTemperature: 18 },

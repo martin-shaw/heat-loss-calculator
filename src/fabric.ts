@@ -17,6 +17,29 @@ export interface FabricComponent {
     kValue: kValue;
 }
 
+/** ISO 6946 surface resistances (m²K/W) by heat-flow direction. */
+export const iso6946SurfaceResistance = {
+    internalHorizontal: 0.13,
+    internalUpward: 0.1,
+    internalDownward: 0.17,
+    external: 0.04,
+};
+
+export interface SurfaceResistances {
+    rsi: number;
+    rse: number;
+}
+
+export const internalPartitionResistances: SurfaceResistances = {
+    rsi: iso6946SurfaceResistance.internalHorizontal,
+    rse: iso6946SurfaceResistance.internalHorizontal,
+};
+
+export const externalRoofResistances: SurfaceResistances = {
+    rsi: iso6946SurfaceResistance.internalUpward,
+    rse: iso6946SurfaceResistance.external,
+};
+
 export const doubleBrick: FabricComponent = { name: "double brick", thickness: 0.2, kValue: brick };
 export const singleBrick: FabricComponent = { name: "single brick", thickness: 0.1, kValue: brick };
 export const plaster: FabricComponent = { name: "plaster", thickness: 0.02, kValue: plasterKvalue };
@@ -42,7 +65,12 @@ export const RdSAPDoubleBrick: Fabric = { name: "double brick", uValue: 1.7 };
 // Unfilled cavity is 0.5, filled cavity is 0.2, unknown house is 0.25. The sample rooms are solid masonry.
 export const RdSAPPartyWallSolidMasonry: Fabric = { name: "party wall, solid masonry", uValue: 0 };
 
+/** Series resistance of plane layers, U = 1 / Σ(d/λ). Does not include Rsi or Rse. */
 export const calculateUValue = (fabrics: FabricComponent[]) => calculateUValueFromRValues(fabrics.map(calculateRValue));
+
+/** Element U-value. Rsi and Rse are required so a wall cannot omit surface resistances. */
+export const calculateElementUValue = (fabrics: FabricComponent[], resistances: SurfaceResistances) =>
+    calculateUValueFromRValues([resistances.rsi, ...fabrics.map(calculateRValue), resistances.rse]);
 
 export const calculateUValueFromRValues = (rValues: number[]) => 1 / sum(rValues);
 

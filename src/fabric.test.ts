@@ -2,7 +2,9 @@ import {
     FabricComponent,
     RdSAPPartyWallSolidMasonry,
     RdSAPPre2002DoubleGlazing12mmPvc,
+    calculateElementUValue,
     calculateUValue,
+    iso6946SurfaceResistance,
     calculateUValueFromRValues,
     calculateRValue,
 } from "./fabric";
@@ -78,6 +80,19 @@ describe("u-value calibration", () => {
         // This matches the manufacturers data
         const result = calculateUValue([ecoWool]);
         expect(result.toFixed(2)).toBe("0.12");
+    });
+
+    test("an external wall includes Rsi and Rse", () => {
+        const layers: FabricComponent[] = [{ name: "single brick", thickness: 0.1, kValue: { type: "brick", value: 0.1 } }];
+        const layersOnly = calculateUValue(layers);
+        const element = calculateElementUValue(layers, {
+            rsi: iso6946SurfaceResistance.internalHorizontal,
+            rse: iso6946SurfaceResistance.external,
+        });
+
+        expect(layersOnly).toBe(1);
+        expect(element.toFixed(2)).toBe("0.85");
+        expect(element).toBeLessThan(layersOnly);
     });
 
     test("Single composition is calculated", () => {

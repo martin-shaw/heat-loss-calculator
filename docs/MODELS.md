@@ -9,7 +9,7 @@ CIBSE Guide A is retained as background and a possible alternate model (see open
 | Concept | Status | Normative model | Module |
 | -------- | ------ | --------------- | ------ |
 | Fabric heat loss | implemented | SAP-style `Q = U · A · ΔT` | [`src/calculator.ts`](../src/calculator.ts) |
-| Layered U-value from λ | implemented | `U = 1 / Σ(d/λ)` (combined method) | [`src/fabric.ts`](../src/fabric.ts) |
+| Layered U-value from λ | implemented | Series method `U = 1 / Σ(d/λ)`; element U adds Rsi and Rse | [`src/fabric.ts`](../src/fabric.ts) |
 | RdSAP fabric defaults | implemented | RdSAP Tables S1, S3, S6, S8B, S14 | [`src/fabric.ts`](../src/fabric.ts) |
 | Material k-values (λ) | implemented | Material thermal conductivity | [`src/k-value.ts`](../src/k-value.ts) |
 | Solid floor U | implemented | RdSAP §S5 (ground floors) | [`src/solid-floor.ts`](../src/solid-floor.ts) |
@@ -64,12 +64,13 @@ Status meanings:
 
 **What:** Thermal transmittance of a multi-layer construction from component thicknesses and λ.
 
-**Normative model:** Combined method — R = d/λ per layer, U = 1 / ΣR  
-(see also BR 443 / gov.scot worked examples)
+**Normative model:** Series method for plane layers — R = d/λ per layer, U = 1 / ΣR.  
+ISO 6946’s combined method is the bridged-layer procedure and is not implemented.  
+An element U-value adds surface resistances: horizontal internal 0.13, upward 0.10, downward 0.17, outside 0.04 (m²K/W).
 
-**Implemented in:** `calculateRValue`, `calculateUValue` in [`src/fabric.ts`](../src/fabric.ts)
+**Implemented in:** `calculateRValue`, `calculateUValue` (layers only), `calculateElementUValue` (layers plus Rsi and Rse) in [`src/fabric.ts`](../src/fabric.ts)
 
-**Assumptions:** Plane layers in series; no thermal bridging or air-gap corrections beyond what is baked into a component’s λ.
+**Assumptions:** Plane layers in series. A layered surface passed to `calculateRoom` must set `surfaceResistances`; table U-values already include them. No thermal bridging or air-gap corrections beyond what is baked into a component’s λ.
 
 ### References
 

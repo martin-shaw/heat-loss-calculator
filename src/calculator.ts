@@ -5,7 +5,7 @@
 import { sumAreas } from "./rect";
 import { Room } from "./room";
 import { Surface } from "./surface";
-import { calculateUValue, Fabric, FabricComponent } from "./fabric";
+import { calculateElementUValue, Fabric, FabricComponent, SurfaceResistances } from "./fabric";
 import { sum } from "./math";
 import { area as triangleArea } from "./triangle";
 
@@ -24,6 +24,7 @@ interface CalculatedSurface {
 interface CalculatedSurfaceArea {
     name: string;
     composition: Fabric | FabricComponent[];
+    surfaceResistances?: SurfaceResistances;
     area: number;
 }
 
@@ -55,6 +56,7 @@ export const calculateSurfaceAreas = (surface: Surface) => {
     return flattenedSurfaces.map((surface) => ({
         name: surface.name,
         composition: surface.composition,
+        surfaceResistances: surface.surfaceResistances,
         area: calculateSurfaceArea(surface),
     }));
 };
@@ -70,7 +72,7 @@ export const calculateSurfaceHeatloss = (
 
     const deltaT = roomTemperature - boundaryTemperature;
 
-    const uValue = calculateSurfaceUValue(surface.composition);
+    const uValue = calculateSurfaceUValue(surface.composition, surface.surfaceResistances);
     // Q = U · A · ΔT — see docs/MODELS.md#fabric-heat-loss
     return uValue * surface.area * deltaT;
 };
@@ -90,5 +92,17 @@ export const calculateSurfaceArea = (surface: Surface) => {
     return sumAreas([surface]) - elementsArea - gablesArea;
 };
 
-export const calculateSurfaceUValue = (composition: Fabric | FabricComponent[]) =>
-    Array.isArray(composition) ? calculateUValue(composition) : composition.uValue;
+export const calculateSurfaceUValue = (
+    composition: Fabric | FabricComponent[],
+    surfaceResistances?: SurfaceResistances
+) => {
+    if (!Array.isArray(composition)) {
+        return composition.uValue;
+    }
+
+    if (!surfaceResistances) {
+        throw new Error("A layered construction requires surfaceResistances (Rsi and Rse)");
+    }
+
+    return calculateElementUValue(composition, surfaceResistances);
+};

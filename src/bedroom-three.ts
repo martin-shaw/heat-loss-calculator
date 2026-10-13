@@ -1,4 +1,12 @@
-import { internalFloor, plaster, RdSAPDoubleBrick, RdSAPPartyWallSolidMasonry, singleBrick } from "./fabric";
+import {
+    externalRoofResistances,
+    internalFloor,
+    internalPartitionResistances,
+    plaster,
+    RdSAPDoubleBrick,
+    RdSAPPartyWallSolidMasonry,
+    singleBrick,
+} from "./fabric";
 import { Room } from "./room";
 import * as kValues from "./k-value";
 
@@ -34,6 +42,7 @@ export const room: Room = {
             width: 4.9,
             height: 2.8,
             composition: [plaster, singleBrick, plaster],
+            surfaceResistances: internalPartitionResistances,
             boundaryTemperature: 18,
         },
         { name: "internal floor", width: 4.9, height: 3.7, composition: internalFloor, boundaryTemperature: 18 },
@@ -42,6 +51,7 @@ export const room: Room = {
             width: 4.9,
             height: 3.7,
             composition: [{ name: "pir", thickness: 0.1, kValue: kValues.pir }],
+            surfaceResistances: externalRoofResistances,
             boundaryTemperature: -3,
         },
     ],
