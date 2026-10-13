@@ -40,9 +40,9 @@ Status meanings:
 
 **Assumptions:**
 
-- Default room temperature 20 °C (`src/settings.ts`)
-- Default external temperature −3 °C when a surface has no `boundaryTemperature`
-- ΔT uses room temperature minus boundary (or default room temperature for internal boundaries)
+- Every surface must set `boundaryTemperature`. A missing boundary throws. `0` is a real temperature, not a missing value.
+- ΔT is room temperature minus that boundary. Outside air on the sample rooms is −3 °C, set by the caller.
+- `src/settings.ts` holds 20 °C and −3 °C as reference values. The calculator does not apply them.
 
 **Related alternatives:** Tests note a possible future split for SAP vs CIBSE surface heat-loss models (`src/calculator.test.ts`).
 

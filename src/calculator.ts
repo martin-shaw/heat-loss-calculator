@@ -5,7 +5,6 @@
 import { sumAreas } from "./rect";
 import { Room } from "./room";
 import { Surface } from "./surface";
-import { defaultRoomTemperature } from "./settings";
 import { calculateUValue, Fabric, FabricComponent } from "./fabric";
 import { sum } from "./math";
 import { area as triangleArea } from "./triangle";
@@ -65,7 +64,11 @@ export const calculateSurfaceHeatloss = (
     roomTemperature: number,
     boundaryTemperature?: number
 ) => {
-    const deltaT = roomTemperature - (boundaryTemperature ? boundaryTemperature : defaultRoomTemperature);
+    if (boundaryTemperature === undefined) {
+        throw new Error(`Surface "${surface.name}" requires a boundaryTemperature`);
+    }
+
+    const deltaT = roomTemperature - boundaryTemperature;
 
     const uValue = calculateSurfaceUValue(surface.composition);
     // Q = U · A · ΔT — see docs/MODELS.md#fabric-heat-loss

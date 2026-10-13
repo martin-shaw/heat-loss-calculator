@@ -29,6 +29,22 @@ describe("calculateSurfaceArea", () => {
     });
 });
 
+describe("calculateSurfaceHeatloss", () => {
+    const wall = { name: "wall", composition: { name: "wall", uValue: 1 }, area: 1 };
+
+    test("a boundary of 0°C is kept", () => {
+        expect(calculateSurfaceHeatloss(wall, 20, 0)).toBe(20);
+    });
+
+    test("a boundary of -3°C is kept", () => {
+        expect(calculateSurfaceHeatloss(wall, 18, -3)).toBe(21);
+    });
+
+    test("an omitted boundary is rejected", () => {
+        expect(() => calculateSurfaceHeatloss(wall, 18)).toThrow(/boundaryTemperature/);
+    });
+});
+
 describe("Bedroom 1 fabric heat loss", () => {
     test("solid brick age bands A–E use Table S6 U = 1.7", () => {
         expect(RdSAPDoubleBrick.uValue).toBe(1.7);
