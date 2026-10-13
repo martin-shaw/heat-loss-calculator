@@ -203,7 +203,7 @@ Status meanings:
 
 **Implemented in:** [`src/solid-floor-lookup.ts`](../src/solid-floor-lookup.ts)
 
-**Assumptions:** Returns the tabulated U for the smallest table key ≥ P/A; if P/A exceeds the table, returns `maxUValue` (0.7).
+**Assumptions:** Exact table keys return that row. Between keys, U is linearly interpolated. Below the first key (P/A = 0.05), the first row (0.13) is returned. Above the last key (P/A = 0.50), the last segment is extrapolated, so P/A = 0.80 is 1.00 rather than a cap of 0.70.
 
 **Source scan:** [`images/solid-ground-floors-u-value-table.png`](../images/solid-ground-floors-u-value-table.png) (Table 6.C.2)
 
