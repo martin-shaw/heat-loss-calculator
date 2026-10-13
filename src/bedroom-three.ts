@@ -57,4 +57,5 @@ export const room: Room = {
     ],
 };
 
-// is flat ceiling treated as loft space?
+// Roof area is still the plan rectangle. Do not switch it to slopingCeilingArea until the
+// survey pitch and rise close the gable wall. See src/room-in-roof.ts.

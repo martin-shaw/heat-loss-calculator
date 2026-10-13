@@ -16,7 +16,7 @@ CIBSE Guide A is retained as background and a possible alternate model (see open
 | Solid floor U | approximate | BRE IP 3/90-style perimeter formula | [`src/solid-floor-bre-ip-3-90.ts`](../src/solid-floor-bre-ip-3-90.ts) |
 | Solid floor U | lookup | gov.scot Table 6.C (P/A → U) | [`src/solid-floor-lookup.ts`](../src/solid-floor-lookup.ts) |
 | Suspended floor U | implemented | RdSAP §S5.5 | [`src/suspended-floor.ts`](../src/suspended-floor.ts) |
-| Room-in-roof | background | RdSAP / gov.scot notes | [`src/room-in-roof.ts`](../src/room-in-roof.ts) (links only) |
+| Room-in-roof areas | implemented | Flat ceiling, rafter slopes, knee walls, gable ends | [`src/room-in-roof.ts`](../src/room-in-roof.ts) |
 | Surface geometry | utility | Area net of openings; symmetric gable `(width × rise) / 2` | [`src/surface.ts`](../src/surface.ts), [`src/calculator.ts`](../src/calculator.ts) |
 
 Status meanings:
@@ -274,9 +274,9 @@ RdSAP floor U-values belong to a whole dwelling or extension slab, using that sl
 
 ## Room-in-roof
 
-**What:** Guidance for modelling rooms in the roof (not yet a coded thermal procedure).
+**What:** Areas for a symmetrical room in the roof: flat ceiling, sloping ceilings along the rafter (`horizontal run / cos(pitch)`), both knee walls, and one gable end.
 
-**Status:** background — links only in [`src/room-in-roof.ts`](../src/room-in-roof.ts)
+**Status:** areas are implemented in [`src/room-in-roof.ts`](../src/room-in-roof.ts). Bedroom 3 still uses its plan-rectangle roof. Its stored 30° pitch and 1.6 m rise do not close the 3.7 m wall, so that roof area is left unchanged until the survey geometry is settled.
 
 ### References
 
