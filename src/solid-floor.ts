@@ -1,3 +1,8 @@
+/**
+ * Solid ground floor U-value (RdSAP §S5).
+ * Model: docs/MODELS.md#solid-floor-u-value-rdsap
+ */
+
 // Soil type clay (thermal conductivity λg = 1.5 W/m·K)
 const clayThermalConductivity = 1.5;
 const Rsi = 0.17;
@@ -10,9 +15,6 @@ interface Model {
     rf: number;
 }
 
-/**
- * https://www.bre.co.uk/filelibrary/SAP/2012/RdSAP-9.93/RdSAP_2012_9.93.pdf
- */
 export const calculate = (model: Model) => {
     const { wallThickness, area, exposedPerimiter, rf } = model;
 

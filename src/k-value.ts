@@ -1,3 +1,7 @@
+/**
+ * Material thermal conductivity λ (W/m·K).
+ * Model: docs/MODELS.md#material-k-values
+ */
 export interface kValue {
     type: string;
     value: number;

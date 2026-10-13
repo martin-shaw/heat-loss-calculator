@@ -1,3 +1,7 @@
+/**
+ * Room fabric heat loss: Q = U · A · ΔT (SAP-style).
+ * Model: docs/MODELS.md#fabric-heat-loss
+ */
 import { sumAreas } from "./rect";
 import { Room } from "./room";
 import { Surface } from "./surface";
@@ -64,9 +68,7 @@ export const calculateSurfaceHeatloss = (
     const deltaT = roomTemperature - (boundaryTemperature ? boundaryTemperature : defaultRoomTemperature);
 
     const uValue = calculateSurfaceUValue(surface.composition);
-    // SAP model
-    // https://learn.openenergymonitor.org/sustainable-energy/building-energy-model/fabricheatloss
-    // Heat loss = U-value x Area x Temperature Difference
+    // Q = U · A · ΔT — see docs/MODELS.md#fabric-heat-loss
     return uValue * surface.area * deltaT;
 };
 

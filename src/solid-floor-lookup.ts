@@ -1,3 +1,7 @@
+/**
+ * Solid floor U-value from P/A lookup (gov.scot Table 6.C).
+ * Model: docs/MODELS.md#solid-floor-u-value-lookup
+ */
 interface Model {
     area: number;
     exposedPerimiter: number;
@@ -17,7 +21,6 @@ uValues.set(0.5, 0.7);
 
 export const maxUValue = 0.7;
 
-// https://www.gov.scot/binaries/content/documents/govscot/publications/advice-and-guidance/2020/02/tables-of-u-values-and-thermal-conductivity/documents/6-c---u-values-of-ground-floors-and-basements/6-c---u-values-of-ground-floors-and-basements/govscot%3Adocument/6.C%2B-%2BU-values%2Bof%2Bground%2Bfloors%2Band%2Bbasements%2B%2B.pdf
 export const calculate = (model: Model) => {
     const { area, exposedPerimiter } = model;
 

@@ -1,6 +1,6 @@
 import { calculate } from "./suspended-floor";
 
-// See src/suspended-floor.test.md for model assumptions
+// Calibration case study — see docs/MODELS.md#suspended-floor-u-value
 const wallThickness = 0.22;
 const area = 27.7;
 const exposedPerimiter = 9.1;

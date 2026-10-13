@@ -1,3 +1,7 @@
+/**
+ * Surface geometry and composition (utility for fabric heat loss).
+ * See: docs/MODELS.md (Surface geometry)
+ */
 import { Fabric, FabricComponent } from "./fabric";
 import { Rect } from "./rect";
 

@@ -1,3 +1,8 @@
+/**
+ * Suspended timber ground floor U-value (RdSAP §S5.5).
+ * Model: docs/MODELS.md#suspended-floor-u-value
+ */
+
 const windSpeed = 5;
 const windSheildingFactor = 0.05;
 // Soil type clay (thermal conductivity λg = 1.5 W/m·K)
@@ -11,8 +16,7 @@ const modelDefaults = {
     // Thermal resistance of floor deck Rf = 0.2 m²K/W if uninsulated,
     // or Rf = thermal resistance of insulation + 0.2 if insulated
     rf: 0.2,
-    // S5.5 states U-value of walls to underfloor space Uw = 1.5 W/m²K
-    // Not sure why this differs to the 2.1 value stated elsewhere for 220mm solid wall
+    // S5.5: Uw = 1.5 W/m²K (differs from RdSAPDoubleBrick 2.1 — see MODELS.md)
     wallUValue: 1.5,
 };
 
@@ -27,9 +31,6 @@ interface Model {
     insulationThermalResistance?: number;
 }
 
-/**
- * https://www.bre.co.uk/filelibrary/SAP/2012/RdSAP-9.93/RdSAP_2012_9.93.pdf
- */
 export const calculate = (model: Model) => {
     const {
         wallThickness,

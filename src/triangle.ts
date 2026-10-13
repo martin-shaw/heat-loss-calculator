@@ -1,8 +1,10 @@
-import { hypotenuse } from "./trig";
-
 /**
+ * Right-triangle area helper for gable geometry (utility, not a thermal model).
+ * See: docs/MODELS.md (Surface geometry)
  * https://www.omnicalculator.com/math/right-triangle-area
  */
+import { hypotenuse } from "./trig";
+
 export const area = (opposite: number, angle: number) => {
     // isosceles triangle
     if (angle == 45) {

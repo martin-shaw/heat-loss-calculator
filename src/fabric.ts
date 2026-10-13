@@ -1,3 +1,8 @@
+/**
+ * Fabric U-values: layered calculation from λ, and RdSAP table defaults.
+ * Models: docs/MODELS.md#layered-u-value-from-k-values
+ *         docs/MODELS.md#rdsap-fabric-defaults
+ */
 import { brick, plaster as plasterKvalue, kValue } from "./k-value";
 import { sum } from "./math";
 
