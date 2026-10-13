@@ -95,7 +95,7 @@ Status meanings:
 
 | Constant | Table / note | Value in code |
 | -------- | ------------ | ------------- |
-| `RdSAPDoubleBrick` | S1 age band A (pre-1900), S3 solid brick 220 mm, S6 wall U-values | 2.1 W/m²K (comment notes historical 1.7) |
+| `RdSAPDoubleBrick` | S6 solid brick as built, age bands A–E, England & Wales. The pre-9.93 value was 2.1. Bands F and later are not encoded. | 1.7 |
 | `RdSAPPartyWall` | S8B party walls | 0 |
 | `doubleGlazing` | S14 window characteristics (12 mm gap, PVC) | 2.8 |
 | `internalFloor` / `internalCeiling` | internal separations | 1.7 |
@@ -236,7 +236,7 @@ Status meanings:
 | v | Wind speed | 5 m/s |
 | fw | Wind shielding factor | 0.05 |
 
-**Open question:** S5.5 sets Uw = 1.5 W/m²K; that differs from the ~2.1 value used elsewhere for 220 mm solid wall (`RdSAPDoubleBrick`). Documented in code comments; not resolved.
+**Open question:** S5.5 sets Uw = 1.5 W/m²K for the underfloor wall. That is a different parameter from `RdSAPDoubleBrick` (1.7), which is the above-ground solid-brick wall. Both are left as specified.
 
 **Steps (as intended by RdSAP / comments):**
 

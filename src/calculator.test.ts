@@ -1,4 +1,6 @@
-import { calculateSurfaceArea } from "./calculator";
+import { room as bedroom1 } from "./bedroom-one";
+import { calculateRoom, calculateSurfaceArea, calculateSurfaceAreas, calculateSurfaceHeatloss } from "./calculator";
+import { RdSAPDoubleBrick } from "./fabric";
 
 describe("calculateSurfaceArea", () => {
     test("elements are subtracted", () => {
@@ -24,6 +26,22 @@ describe("calculateSurfaceArea", () => {
             composition: [],
         });
         expect(result).toBe(6);
+    });
+});
+
+describe("Bedroom 1 fabric heat loss", () => {
+    test("solid brick age bands A–E use Table S6 U = 1.7", () => {
+        expect(RdSAPDoubleBrick.uValue).toBe(1.7);
+
+        const result = calculateRoom(bedroom1);
+        const external = bedroom1.surfaces.find((surface) => surface.name === "external wall");
+        const wallOnly = calculateSurfaceAreas(external!).find((surface) => surface.name === "external wall");
+
+        expect(calculateSurfaceHeatloss(wallOnly!, bedroom1.temperature, external!.boundaryTemperature)).toBeCloseTo(393, 0);
+        expect(result.heatLoss).toBeCloseTo(553, 0);
+        expect(
+            result.surfaces.filter((surface) => surface.name !== "external wall").every((surface) => surface.heatLoss === 0)
+        ).toBe(true);
     });
 });
 

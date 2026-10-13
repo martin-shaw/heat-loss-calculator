@@ -28,14 +28,10 @@ export const doubleGlazing: Fabric = { name: "double glazing", uValue: 2.8 };
 export const internalFloor: Fabric = { name: "internal floor", uValue: 1.7 };
 export const internalCeiling: Fabric = { name: "internal celing", uValue: 1.7 };
 
-// RdSAP
-// Table S1 : Age band
-// A before 1900
-// Table S3 : Wall thickness
-// solid brick 220mm
-// Table S6 : Wall U-values – England and Wales
-// 1.7 was 2.1
-export const RdSAPDoubleBrick: Fabric = { name: "double brick", uValue: 2.1 };
+// RdSAP Table S6: Wall U-values – England and Wales
+// Solid brick as built, age bands A–E. The pre-9.93 figure was 2.1.
+// Age band F is 1.0, and later bands are lower. Those cells are not encoded here.
+export const RdSAPDoubleBrick: Fabric = { name: "double brick", uValue: 1.7 };
 
 // Table S8B : U-values of party walls
 export const RdSAPPartyWall: Fabric = { name: "party wall", uValue: 0 };
