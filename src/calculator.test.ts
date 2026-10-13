@@ -1,6 +1,7 @@
 import { room as bedroom1 } from "./bedroom-one";
 import { calculateRoom, calculateSurfaceArea, calculateSurfaceAreas, calculateSurfaceHeatloss } from "./calculator";
 import { RdSAPDoubleBrick } from "./fabric";
+import { calculate as solidFloorU } from "./solid-floor";
 
 describe("calculateSurfaceArea", () => {
     test("elements are subtracted", () => {
@@ -79,6 +80,39 @@ describe("Bedroom 1 fabric heat loss", () => {
         expect(
             result.surfaces.filter((surface) => surface.name !== "external wall").every((surface) => surface.heatLoss === 0)
         ).toBe(true);
+    });
+});
+
+describe("slab floor inside a room", () => {
+    test("heat loss is the slab U-value times the room floor area and ΔT", () => {
+        const slabArea = 80;
+        const exposedPerimiter = 36;
+        const roomFloorArea = 20;
+        const roomTemperature = 20;
+        const outside = -3;
+        const uValue = solidFloorU({
+            wallThickness: 0.22,
+            area: slabArea,
+            exposedPerimiter,
+            rf: 0,
+        });
+
+        const result = calculateRoom({
+            name: "end room on a solid ground floor",
+            temperature: roomTemperature,
+            surfaces: [
+                {
+                    name: "solid ground floor",
+                    width: 5,
+                    height: 4,
+                    composition: { name: "solid ground floor", uValue },
+                    boundaryTemperature: outside,
+                },
+            ],
+        });
+
+        expect(result.surfaces[0].area).toBe(roomFloorArea);
+        expect(result.heatLoss).toBeCloseTo(uValue * roomFloorArea * (roomTemperature - outside), 6);
     });
 });
 

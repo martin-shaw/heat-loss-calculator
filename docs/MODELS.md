@@ -268,6 +268,10 @@ An element U-value adds surface resistances: horizontal internal 0.13, upward 0.
 
 ---
 
+## Applying a ground-floor U-value to a room
+
+RdSAP floor U-values belong to a whole dwelling or extension slab, using that slab’s area and exposed perimeter. `calculateRoom` does not recompute U from the room’s own perimeter. The caller supplies the slab U (from [`src/solid-floor.ts`](../src/solid-floor.ts) or [`src/suspended-floor.ts`](../src/suspended-floor.ts)) on the floor surface, and heat loss is `U × room floor area × ΔT` to outside air. Proved in `src/calculator.test.ts` for an 80 m² slab with a 20 m² room floor.
+
 ## Room-in-roof
 
 **What:** Guidance for modelling rooms in the roof (not yet a coded thermal procedure).
