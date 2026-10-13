@@ -51,14 +51,18 @@ export const calculate = (model: Model) => {
     // 2. B = 2 × A/P
     const b = 2 * (area / exposedPerimiter);
 
-    // 3. Ug = 2 × λg × ln(π × B/dg + 1)/(π × B + dg)
-    const ug = (2 * clayThermalConductivity * Math.log(Math.PI * (b / dg + 1))) / (Math.PI * b + dg);
+    // 3. Ug = 2 × λg × ln(π × B/dg + 1)/(π × B + dg) when dg < B
+    //    Ug = λg / (0.457 × B + dg) when dg ≥ B (ISO 13370; RdSAP 9.93 prints only the log form)
+    const ug =
+        dg < b
+            ? (2 * clayThermalConductivity * Math.log((Math.PI * b) / dg + 1)) / (Math.PI * b + dg)
+            : clayThermalConductivity / (0.457 * b + dg);
 
     // 4. Ux = (2 × h × Uw/B) + (1450 × ε × v × fw/B)
     const ux = (2 * heightAboveGround * wallUValue) / b + (1450 * ventilation * windSpeed * windSheildingFactor) / b;
 
     // 5. U = 1 / (2 × Rsi + Rf + 1/(Ug + Ux))
-    const u = 1 / ((2 * Rsi + floorThermalResistance + 1) / (ug + ux));
+    const u = 1 / (2 * Rsi + floorThermalResistance + 1 / (ug + ux));
 
     return u;
 };

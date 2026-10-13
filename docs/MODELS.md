@@ -242,10 +242,11 @@ Status meanings:
 
 1. `dg = w + λg × (Rsi + Rse)`
 2. `B = 2 × A / P`
-3. `Ug = 2 × λg × ln(π × B/dg + 1) / (π × B + dg)`
+3. If `dg < B`: `Ug = 2 × λg × ln(π × B/dg + 1) / (π × B + dg)`  
+   If `dg ≥ B`: `Ug = λg / (0.457 × B + dg)` (ISO 13370; RdSAP 9.93 prints only the log form)
 4. `Ux = (2 × h × Uw / B) + (1450 × ε × v × fw / B)`
 5. `U = 1 / (2 × Rsi + Rf + 1/(Ug + Ux))`  
-   (Rf includes optional insulation thermal resistance)
+   (Rf includes optional insulation thermal resistance. The `1/(Ug + Ux)` term is a single resistance, not `(2·Rsi + Rf + 1) / (Ug + Ux)`.)
 
 **Verified by:** `src/suspended-floor.test.ts` — ScienceDirect / White Rose case study calibration (uninsulated, woodfibre, bead insulation). Case-study geometry and assumptions: [`images/calibration-model-assumptions.png`](../images/calibration-model-assumptions.png).
 
