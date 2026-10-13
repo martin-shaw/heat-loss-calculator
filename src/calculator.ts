@@ -107,3 +107,11 @@ export const calculateSurfaceUValue = (
 
     return calculateElementUValue(composition, surfaceResistances);
 };
+
+/** Ventilation heat loss Qv = 0.33 × n × V × ΔT (W). Not included in calculateRoom. */
+export const calculateVentilationHeatLoss = (airChangesPerHour: number, volume: number, deltaT: number) =>
+    0.33 * airChangesPerHour * volume * deltaT;
+
+/** Thermal bridging Qtb = y × Aexposed × ΔT (W). Not included in calculateRoom. */
+export const calculateThermalBridgingHeatLoss = (yValue: number, exposedArea: number, deltaT: number) =>
+    yValue * exposedArea * deltaT;

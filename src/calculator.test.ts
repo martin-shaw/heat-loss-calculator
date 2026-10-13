@@ -1,5 +1,12 @@
 import { room as bedroom1 } from "./bedroom-one";
-import { calculateRoom, calculateSurfaceArea, calculateSurfaceAreas, calculateSurfaceHeatloss } from "./calculator";
+import {
+    calculateRoom,
+    calculateSurfaceArea,
+    calculateSurfaceAreas,
+    calculateSurfaceHeatloss,
+    calculateThermalBridgingHeatLoss,
+    calculateVentilationHeatLoss,
+} from "./calculator";
 import { RdSAPDoubleBrick } from "./fabric";
 import { calculate as solidFloorU } from "./solid-floor";
 
@@ -113,6 +120,21 @@ describe("slab floor inside a room", () => {
 
         expect(result.surfaces[0].area).toBe(roomFloorArea);
         expect(result.heatLoss).toBeCloseTo(uValue * roomFloorArea * (roomTemperature - outside), 6);
+    });
+});
+
+describe("ventilation and thermal bridging", () => {
+    const deltaT = 21;
+    const bedroom1Volume = 4.9 * 3.7 * 2.8;
+    const bedroom1ExposedWall = 4.9 * 2.8;
+
+    test("ventilation is 0.33 × n × V × ΔT and is not part of the fabric total", () => {
+        expect(calculateVentilationHeatLoss(0.5, bedroom1Volume, deltaT)).toBeCloseTo(176, 0);
+        expect(calculateRoom(bedroom1).heatLoss).toBeCloseTo(553, 0);
+    });
+
+    test("thermal bridging is y × exposed area × ΔT", () => {
+        expect(calculateThermalBridgingHeatLoss(0.15, bedroom1ExposedWall, deltaT)).toBeCloseTo(43, 0);
     });
 });
 

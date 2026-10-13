@@ -17,6 +17,8 @@ CIBSE Guide A is retained as background and a possible alternate model (see open
 | Solid floor U | lookup | gov.scot Table 6.C (P/A → U) | [`src/solid-floor-lookup.ts`](../src/solid-floor-lookup.ts) |
 | Suspended floor U | implemented | RdSAP §S5.5 | [`src/suspended-floor.ts`](../src/suspended-floor.ts) |
 | Room-in-roof areas | implemented | Flat ceiling, rafter slopes, knee walls, gable ends | [`src/room-in-roof.ts`](../src/room-in-roof.ts) |
+| Ventilation heat loss | implemented | `Qv = 0.33 × n × V × ΔT`, separate from fabric | [`src/calculator.ts`](../src/calculator.ts) |
+| Thermal bridging | implemented | `Qtb = y × Aexposed × ΔT`, separate from fabric | [`src/calculator.ts`](../src/calculator.ts) |
 | Surface geometry | utility | Area net of openings; symmetric gable `(width × rise) / 2` | [`src/surface.ts`](../src/surface.ts), [`src/calculator.ts`](../src/calculator.ts) |
 
 Status meanings:
@@ -43,6 +45,7 @@ Status meanings:
 - Every surface must set `boundaryTemperature`. A missing boundary throws. `0` is a real temperature, not a missing value.
 - ΔT is room temperature minus that boundary. Outside air on the sample rooms is −3 °C, set by the caller.
 - `src/settings.ts` holds 20 °C and −3 °C as reference values. The calculator does not apply them.
+- Ventilation (`Qv = 0.33 × n × V × ΔT`) and thermal bridging (`Qtb = y × Aexposed × ΔT`) are separate functions. `calculateRoom` does not add them.
 
 **Related alternatives:** Tests note a possible future split for SAP vs CIBSE surface heat-loss models (`src/calculator.test.ts`).
 
@@ -287,6 +290,18 @@ RdSAP floor U-values belong to a whole dwelling or extension slab, using that sl
 - [Retrofit room-in-roof insulation best practice](https://assets.publishing.service.gov.uk/media/61d727d18fa8f50594b59305/retrofit-room-in-roof-insulation-best-practice.pdf)
 
 ---
+
+## Ventilation and thermal bridging
+
+**What:** Heat loss terms used when a fabric total is later compared with an emitter size. They are not part of `Q = U · A · ΔT`.
+
+**Implemented in:** `calculateVentilationHeatLoss` and `calculateThermalBridgingHeatLoss` in [`src/calculator.ts`](../src/calculator.ts)
+
+**Assumptions:**
+
+- Ventilation: `Qv = 0.33 × n × V × ΔT` (W), with n in air changes per hour and V in m³
+- Thermal bridging: `Qtb = y × Aexposed × ΔT` (W)
+- Bedroom 1 at n = 0.5, V = 4.9 × 3.7 × 2.8 m³ and ΔT = 21 K is about 176 W. A y-value of 0.15 W/m²K on the 4.9 × 2.8 m external wall is about 43 W. Neither is added to `calculateRoom`.
 
 ## Surface geometry
 
