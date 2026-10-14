@@ -12,6 +12,8 @@ U-values come from RdSAP tables or from RdSAP / BR 443 ground-floor procedures (
 
 See **[docs/MODELS.md](docs/MODELS.md)** for the map of physical concepts → standard clauses → source modules, plus normative and background references.
 
+See **[docs/METHODOLOGY-ARCHITECTURE.md](docs/METHODOLOGY-ARCHITECTURE.md)** for the proposed separation between method-neutral room definitions, methodology profiles and the shared fabric-loss engine.
+
 ## Run
 
 ```bash
